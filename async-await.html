@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Async/Await</title>
+  </head>
+  <body>
+    <header>Async/Await</header>
+    <div id="buttonHolder">
+      <a href="callback.html"><button id="asyncawait">Callbacks</button></a>
+      <a href="index.html"><button id="home">Home</button></a>
+      <a href="Promises.html"><button id="promises">Promises</button></a>
+    </div>
+    <button id="action">Click Me!</button>
+    <div id="contentHolder"></div>
+
+    <script>
+      const actionButton = document.querySelector("#action");
+      const holder = document.querySelector("#contentHolder");
+      let flag = false; // flag for div display on off 
+      let timeFlag = false; // to flag state if timing limit is needed still or not
+      let checkedFlag = false; // true will denote that the timeout function is already executed
+      actionButton.addEventListener("click", displayInfo);
+      function displayInfo() {
+        if (flag == true) { //to enable and disable the output div
+          holder.style.display = "none";
+          actionButton.style.backgroundColor = "orange";
+          actionButton.innerHTML = "Click Me!";
+
+          flag = false;
+        } else {
+          holder.style.display = "block";
+          actionButton.style.backgroundColor = "red";
+          actionButton.innerHTML = "Don't Click Me!";
+          holder.innerHTML = "Loading...";
+
+          (async function () {
+            setTimeout(() => {
+                // this timeOut function is used to put a time Limit on response time from API
+              if (timeFlag == false) {
+                holder.innerHTML = "Request Timed Out";
+                checkedFlag = true;// to stop further execution of code
+              }
+            }, 5000);
+
+            try {
+                //https://fakeresponder.com?sleep=6000 use this api to check for timeout functionality
+                //sleep="  " represents response time delay from api in above link
+              const awaitHolder1 = await fetch(
+                "https://dummyjson.com/posts" 
+              );
+              if (checkedFlag == false) {// if true will denote that time limit has already ran out
+                const awaitHolder2 = await awaitHolder1.json();
+                holder.innerHTML = JSON.stringify(awaitHolder2);
+              }
+              timeFlag = true;
+            } catch (err) {
+              timeFlag = true;
+              holder.innerHTML = `Network Error: ${err}`;
+            }
+          })();
+
+          flag = true;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous Javascript</title>
+    <style>
+        body{
+            background-color: plum;
+            width: 99vw;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 10vw;
+        }
+        button{
+            background-color: aqua;
+            width: 20vw;
+            height: 5vw;
+            font-size: 3vw;
+            border-radius: 10px;
+            border: 1px solid black;
+            cursor: pointer;
+            box-shadow: purple 10px 5px 10px;
+            transition: all .5s;
+        }
+        button:hover{
+            box-shadow: purple 10px 5px 50px;
+            transform: translateY(-5px);
+            background-color: rgb(0, 195, 255);
+        }
+        #header{
+        width: 99vw;
+        text-align: center;
+        font-size: 5vw;
+        font-weight: bolder;
+        text-shadow: purple 2px 2px ;
+        position: absolute;
+        top:5vh
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- added this heading in last so had to improvise by using absolute -->
+    <div id="header">Home</div>
+    <a href="callback.html"><button id="callback">Callbacks</button></a>
+    <a href="Promises.html"><button id="promises">Promises</button></a>
+    <a href="async-await.html"><button id="asyncawait">Async/Await</button></a>
+</body>
+</html>

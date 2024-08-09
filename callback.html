@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Callbacks</title>
+  </head>
+  <body>
+    <header>Callback</header>
+    <div id="buttonHolder">
+      <a href="Promises.html"><button id="promises">Promises</button></a>
+      <a href="index.html"><button id="home">Home</button></a>
+      <a href="async-await.html"><button id="asyncawait">Async/Await</button></a>
+    </div>
+    <button id="action">Click Me!</button>
+    <div id="contentHolder"></div>
+
+    <script>
+      const actionButton = document.querySelector("#action");
+      const holder = document.querySelector("#contentHolder");
+      let flag = false;
+      actionButton.addEventListener("click", displayInfo);
+      function displayInfo() {
+        if (flag == true) { //to enable and disable the output div
+          holder.style.display = "none";
+          actionButton.style.backgroundColor = "orange";
+          actionButton.innerHTML = "Click Me!";
+
+          flag = false;
+        } else {
+          holder.style.display = "block";
+          actionButton.style.backgroundColor = "red";
+          actionButton.innerHTML = "Don't Click Me!";
+          holder.innerHTML = "fetching DATA.....";
+
+          function main1(para1, para2) {
+            // to set a timeout function which pretends to be a delayed 5s response
+            setTimeout(() => {
+              para1(para2);
+            }, 5000);
+          }
+
+          function callBack1(para3) {
+            holder.innerHTML =
+              "Callback executed after 5 seconds....wait for main Data";
+            setTimeout(() => {
+              para3();
+            }, 1000);
+          }
+          function callBack2() {
+            const data1 = fetch("https://dummyjson.com/posts")
+              .then((response) => response.json())
+              .then((result) => holder.innerHTML=JSON.stringify(result));
+              
+              
+          }
+
+          main1(callBack1, callBack2);
+
+          flag = true;
+        }
+      }
+    </script>
+  </body>
+</html>
